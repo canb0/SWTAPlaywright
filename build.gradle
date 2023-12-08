@@ -12,6 +12,13 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'com.microsoft.playwright', name: 'playwright', version: '1.17.2'
+    implementation group: 'com.microsoft.playwright', name: 'playwright', version: '1.40.0'
     compile group: 'org.testng', name: 'testng', version: '7.1.0'
+}
+
+test{
+    useTestNG(){
+        parallel = "methods"
+        threadCount = 2
+    }
 }

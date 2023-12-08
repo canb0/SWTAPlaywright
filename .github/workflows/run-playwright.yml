@@ -1,0 +1,38 @@
+name: Playwright Tests with Maven
+
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        type: choice
+        required: true
+        description: What browser should be used for the test?
+        default: Chrome
+        options:
+          - Chrome
+          - Firefox
+      url:
+        required: true
+        description: What url will be used?
+        default: 'http://www.swtestacademy.com'
+
+jobs:
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Run the tests
+        run: ./gradlew test
